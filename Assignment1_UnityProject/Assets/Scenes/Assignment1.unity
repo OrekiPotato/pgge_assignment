@@ -2705,7 +2705,7 @@ MonoBehaviour:
   mMaxPitch: 30
   mRotationSpeed: 5
   mTouchField: {fileID: 1263475373}
-  mCameraType: 2
+  mCameraType: 4
 --- !u!1 &1002052345
 GameObject:
   m_ObjectHideFlags: 0
@@ -4301,8 +4301,8 @@ BoxCollider:
   m_ProvidesContacts: 0
   m_Enabled: 1
   serializedVersion: 3
-  m_Size: {x: 1, y: 1, z: 1}
-  m_Center: {x: 0, y: 0, z: 0}
+  m_Size: {x: 1, y: 1, z: 0.99599236}
+  m_Center: {x: 0, y: 0, z: 0.002004467}
 --- !u!23 &2130710308
 MeshRenderer:
   m_ObjectHideFlags: 0

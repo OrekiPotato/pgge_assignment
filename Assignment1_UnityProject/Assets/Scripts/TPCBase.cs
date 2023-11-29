@@ -43,8 +43,7 @@ namespace PGGE
             RaycastHit hit;
 
             if (Physics.Raycast(ray, out hit, maxRayDistance))
-            {
-                
+            {              
                 Vector3 collidingPoint = hit.point;
                 mCameraTransform.position = collidingPoint;
             }
