@@ -103,84 +103,88 @@ public class Player : MonoBehaviour
         {
             mAnimator.SetTrigger("GunDie");
         }
-  }
-
-  public void Aim()
-  {
-    // For Student ----------------------------------------------------------//
-    // Implement the logic of aiming and showing the crosshair
-    // if there is an intersection.
-    //
-    // Hints:
-    // Find the direction of fire.
-    // Find gunpoint as mentioned in the worksheet.
-    // Find the layer mask for objects that you want to intersect with.
-    //
-    // Do the Raycast
-    // if (intersected)
-    // {
-    //     // Draw a line as debug to show the aim of fire in scene view.
-    //     // Find the transformed intersected point to screenspace
-    //     // and then transform the crosshair position to this
-    //     // new position.
-    //     // Enable or set active the crosshair gameobject.
-    // }
-    // else
-    // {
-    //     // Hide or set inactive the crosshair gameobject.
-    // }
-    //-----------------------------------------------------------------------//
-
-    Vector3 dir = -mGunTransform.right.normalized;
-    // Find gunpoint as mentioned in the worksheet.
-    Vector3 gunpoint = mGunTransform.transform.position +
-                       dir * 1.2f -
-                       mGunTransform.forward * 0.1f;
-    // Fine the layer mask for objects that you want to intersect with.
-    LayerMask objectsMask = ~mPlayerMask;
-
-    // Do the Raycast
-    RaycastHit hit;
-    bool flag = Physics.Raycast(gunpoint, dir,
-                    out hit, 50.0f, objectsMask);
-    if (flag)
-    {
-      // Draw a line as debug to show the aim of fire in scene view.
-      Debug.DrawLine(gunpoint, gunpoint +
-          (dir * hit.distance), Color.red, 0.0f);
-
-      // Find the transformed intersected point to screenspace
-      // and then transform the crosshair position to this
-      // new position.
-      // first you need the RectTransform component of your mCanvas
-      RectTransform CanvasRect = mCanvas.GetComponent<RectTransform>();
-
-      // then you calculate the position of the UI element.
-      // Remember that 0,0 for the mCanvas is at the centre of the screen. 
-      // But WorldToViewPortPoint treats the lower left corner as 0,0. 
-      // Because of this, you need to subtract the height / width 
-      // of the mCanvas * 0.5 to get the correct position.
-
-      Vector2 ViewportPosition = Camera.main.WorldToViewportPoint(hit.point);
-      Vector2 WorldObject_ScreenPosition = new Vector2(
-      ((ViewportPosition.x * CanvasRect.sizeDelta.x) - (CanvasRect.sizeDelta.x * 0.5f)),
-      ((ViewportPosition.y * CanvasRect.sizeDelta.y) - (CanvasRect.sizeDelta.y * 0.5f)));
-
-      //now you can set the position of the UI element
-      mCrossHair.anchoredPosition = WorldObject_ScreenPosition;
-
-
-      // Enable or set active the crosshair gameobject.
-      mCrossHair.gameObject.SetActive(true);
+    if (Input.GetKeyDown(KeyCode.K))
+        {
+            mAnimator.SetTrigger("ChickenDance");
+        }
     }
-    else
-    {
-      // Hide or set inactive the crosshair gameobject.
-      mCrossHair.gameObject.SetActive(false);
-    }
-  }
 
-  public void Move()
+    public void Aim()
+    {
+        // For Student ----------------------------------------------------------//
+        // Implement the logic of aiming and showing the crosshair
+        // if there is an intersection.
+        //
+        // Hints:
+        // Find the direction of fire.
+        // Find gunpoint as mentioned in the worksheet.
+        // Find the layer mask for objects that you want to intersect with.
+        //
+        // Do the Raycast
+        // if (intersected)
+        // {
+        //     // Draw a line as debug to show the aim of fire in scene view.
+        //     // Find the transformed intersected point to screenspace
+        //     // and then transform the crosshair position to this
+        //     // new position.
+        //     // Enable or set active the crosshair gameobject.
+        // }
+        // else
+        // {
+        //     // Hide or set inactive the crosshair gameobject.
+        // }
+        //-----------------------------------------------------------------------//
+
+        //Vector3 dir = -mGunTransform.right.normalized;
+        //// Find gunpoint as mentioned in the worksheet.
+        //Vector3 gunpoint = mGunTransform.transform.position +
+        //                   dir * 1.2f -
+        //                   mGunTransform.forward * 0.1f;
+        //// Fine the layer mask for objects that you want to intersect with.
+        //LayerMask objectsMask = ~mPlayerMask;
+
+        //// Do the Raycast
+        //RaycastHit hit;
+        //bool flag = Physics.Raycast(gunpoint, dir,
+        //                out hit, 50.0f, objectsMask);
+        //if (flag)
+        //{
+        //    // Draw a line as debug to show the aim of fire in scene view.
+        //    Debug.DrawLine(gunpoint, gunpoint +
+        //        (dir * hit.distance), Color.red, 0.0f);
+
+        //    // Find the transformed intersected point to screenspace
+        //    // and then transform the crosshair position to this
+        //    // new position.
+        //    // first you need the RectTransform component of your mCanvas
+        //    RectTransform CanvasRect = mCanvas.GetComponent<RectTransform>();
+
+        //    // then you calculate the position of the UI element.
+        //    // Remember that 0,0 for the mCanvas is at the centre of the screen. 
+        //    // But WorldToViewPortPoint treats the lower left corner as 0,0. 
+        //    // Because of this, you need to subtract the height / width 
+        //    // of the mCanvas * 0.5 to get the correct position.
+
+        //    Vector2 ViewportPosition = Camera.main.WorldToViewportPoint(hit.point);
+        //    Vector2 WorldObject_ScreenPosition = new Vector2(
+        //    ((ViewportPosition.x * CanvasRect.sizeDelta.x) - (CanvasRect.sizeDelta.x * 0.5f)),
+        //    ((ViewportPosition.y * CanvasRect.sizeDelta.y) - (CanvasRect.sizeDelta.y * 0.5f)));
+
+        //    //now you can set the position of the UI element
+        //    mCrossHair.anchoredPosition = WorldObject_ScreenPosition;
+
+
+        //    // Enable or set active the crosshair gameobject.
+        //    mCrossHair.gameObject.SetActive(true);
+        //}
+        //else
+        //{
+        //    // Hide or set inactive the crosshair gameobject.
+        //    mCrossHair.gameObject.SetActive(false);
+        //}
+    }
+
+    public void Move()
   {
     mPlayerMovement.HandleInputs();
     mPlayerMovement.Move();
@@ -211,27 +215,21 @@ public class Player : MonoBehaviour
     }
   }
 
-  public void FireBullet()
-  {
-    if (mBulletPrefab == null) return;
+    public void FireBullet()
+    {
+        //if (mBulletPrefab == null) return;
 
-    Vector3 dir = -mGunTransform.right.normalized;
-    float offsetDist = 2.5f;
-    Vector3 firePoint = Camera.main.ViewportToWorldPoint(new Vector3(0.4f, 0.5f, offsetDist));
+        //Vector3 dir = -mGunTransform.right.normalized;
+        //Vector3 firePoint = mGunTransform.transform.position + dir *
+        //    1.2f - mGunTransform.forward * 0.1f;
+        //GameObject bullet = Instantiate(mBulletPrefab, firePoint,
+        //    Quaternion.LookRotation(dir) * Quaternion.AngleAxis(90.0f, Vector3.right));
 
-    Debug.DrawRay(Camera.main.transform.position, dir * 10.0f, Color.blue, 1.0f);
-    // Draw a cross at the firePoint
-    Debug.DrawLine(firePoint - Vector3.up, firePoint + Vector3.up, Color.red, 1.0f);
-    Debug.DrawLine(firePoint - Vector3.left, firePoint + Vector3.left, Color.red, 1.0f);
+        //bullet.GetComponent<Rigidbody>().AddForce(dir * mBulletSpeed, ForceMode.Impulse);
+        mAudioSource.PlayOneShot(mAudioClipGunShot);
+    }
 
-    Quaternion bulletRotation = Quaternion.LookRotation(dir) * Quaternion.Euler(90.0f, 0.0f, 0.0f);
-    GameObject bullet = Instantiate(mBulletPrefab, firePoint, bulletRotation);
-
-    bullet.GetComponent<Rigidbody>().AddForce(dir * mBulletSpeed, ForceMode.Impulse);
-    mAudioSource.PlayOneShot(mAudioClipGunShot);
-  }
-
-  IEnumerator Coroutine_Firing(int id)
+    IEnumerator Coroutine_Firing(int id)
   {
     mFiring[id] = true;
     FireBullet();

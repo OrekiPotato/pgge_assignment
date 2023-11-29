@@ -42,6 +42,7 @@ namespace PGGE
             float maxRayDistance = 5f;
             RaycastHit hit;
 
+            //Checks whether the ray intersects an object within the max distance specified
             if (Physics.Raycast(ray, out hit, maxRayDistance))
             {              
                 Vector3 collidingPoint = hit.point;

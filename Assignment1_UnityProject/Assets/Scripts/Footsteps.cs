@@ -14,15 +14,16 @@ public class Footsteps : MonoBehaviour
         audioSource = GetComponent<AudioSource>();
     }
 
-    public void PlayFootstepClipEvent()
+    public void PlayFootstepClipEvent() // Used in animation events to sync footstep in animation with clips.
     {
         CheckGround();
     }
 
     private void CheckGround()
     {
+        // Create a downwards ray to detect layer the player object is standing on.
         RaycastHit hit;
-        if (Physics.Raycast(transform.position, Vector3.down, out hit, 1f, groundLayer))
+        if (Physics.Raycast(transform.position, Vector3.down, out hit, 1f, groundLayer)) // 
         {
             string groundTag = hit.collider.tag;
 
@@ -32,6 +33,7 @@ public class Footsteps : MonoBehaviour
 
     private void PlayFootstepSound(string tag)
     {
+        // Randomise the pitch and volume.
         audioSource.pitch = Random.Range(1f, 2f);
         audioSource.volume = Random.Range(0.5f, 5f);
 
@@ -41,6 +43,7 @@ public class Footsteps : MonoBehaviour
             return;
         }
 
+        // Creates a list for clips with the matching tag names (ie, Snow/Wood/Concrete etc.)
         List<AudioClip> tagClips = new List<AudioClip>();
         foreach (var sound in footstepsClips)
         {
@@ -57,8 +60,8 @@ public class Footsteps : MonoBehaviour
             return;
         }
 
+        // Chooses a random clip within the list and plays it once.
         AudioClip footstepClip = tagClips[Random.Range(0,tagClips.Count)];
-
         audioSource.PlayOneShot(footstepClip);
     }
 
